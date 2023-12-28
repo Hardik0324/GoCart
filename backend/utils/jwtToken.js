@@ -1,6 +1,8 @@
 const sentToken = (user,statusCode,res)=>{
 
     const token = user.getJWTToken();
+
+    // console.log(token);
     
     //options for cookie
     const option = {

@@ -21,3 +21,5 @@ input[type="number"] {
 .redColor {
   color: red !important;
 }
+
+.grey{background-color: rgb(220, 220, 220);}

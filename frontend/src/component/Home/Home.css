@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200&family=Poppins:wght@100&family=Rubik+Doodle+Shadow&family=Space+Grotesk:wght@300&family=Work+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200&family=Poppins:wght@100&family=Rubik+Doodle+Shadow&family=Rubik+Doodle+Triangles&family=Space+Grotesk:wght@300&family=Work+Sans:wght@300&display=swap');
 .banner {
-    background-image: linear-gradient(to right, rgb(226, 172, 172), rgb(219, 17, 17));
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)), url("../../../background/back.jpg");
+      background-size: cover;
+        background-position: center;
     height: 100vmin;
     display: flex;
     flex-direction: column;
@@ -11,12 +16,13 @@
   
   .banner > h1 {
     margin: 5vmax;
-  
-    font: 600 2.5vmax "Roboto";
+    font-family: "Rubik Doodle Shadow" !important;
+    font-size: 10vh !important;
   }
   
   .banner > p {
-    font: 300 1.4vmax "Lucida Sans";
+    font-family: "Rubik Doodle Shadow" !important;
+    font-size: 6vh !important;
   }
   
   .banner > a > button {
@@ -28,7 +34,7 @@
     padding: 1vmax;
     transition: all 0.5s;
     width: 9vmax;
-    font: 500 1vmax "Roboto";
+    font: 500 1vmax "Rubik Doodle Shadow";
   }
   .banner > a > button:hover {
     background-color: rgba(255, 255, 255, 0);
@@ -37,8 +43,8 @@
   
  .homeHeading{
     text-align: center;
-    font-family: Roboto;
-    font-size: 1.4vmax;
+    font-family: "Rubik Doodle Triangles" !important;
+    font-size: 2.4vmax;
     border-bottom: 1px solid rgb(35, 26, 26);
     width: 20vmax;
     padding: 1vmax;
@@ -63,10 +69,14 @@
     transition: all 0.5s;
     padding-bottom: 0.5vmax;
     border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgb(202, 202, 202);
   }
   
   .productCard > img {
-    width: 14vmax;
+    width: 100%;
+    height: 80%;
   }
   
   .productCard > div {

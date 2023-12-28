@@ -9,12 +9,14 @@ import MetaData from "../layout/MetaData";
 import {Chart, ArcElement, CategoryScale, LineController, LineElement, PointElement, LinearScale} from 'chart.js'
 import { getAdminProduct } from "../../actions/productAction.js";
 import { getAllOrders } from "../../actions/orderAction.js";
+import { getAllUsers } from "../../actions/userAction.js";
 Chart.register(ArcElement, LineController, LineElement, PointElement, LinearScale, CategoryScale);
 
 const Dashboard = () => {
 
   const {products} = useSelector((state)=>state.products);
-  const {orders} = useSelector((state)=>state.allOrders)
+  const {orders} = useSelector((state)=>state.allOrders);
+  const { users } = useSelector((state) => state.allUsers);
 
   const dispatch = useDispatch();
 
@@ -28,29 +30,24 @@ const Dashboard = () => {
 
   useEffect(()=>{
     dispatch(getAdminProduct());
-    dispatch(getAllOrders);
+    dispatch(getAllOrders());
+    dispatch(getAllUsers())
   },[dispatch]);
+
+   let totalAmount = 0;
+   orders &&
+     orders.forEach((item) => {
+       totalAmount += item.totalPrice;
+     });
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
     datasets: [
-      {
+      { 
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
         hoverBackgroundColor: ["rgb(197, 72, 49)"],
-        data: [0, 4000],
-      },
-    ],
-  };
-
-  const doughnutState = {
-    labels: ["Out of Stock", "InStock"],
-    datasets: [
-      {
-        label: "Stock",
-        data: [outOfStock, products.length - outOfStock],
-        backgroundColor: ["#00A6B4", "#6800B4"],
-        hoverBackgroundColor: ["#4B5000", "#35014F"],
+        data: [0, totalAmount],
       },
     ],
   };
@@ -79,7 +76,7 @@ const Dashboard = () => {
             </Link>
             <Link to="/admin/users">
               <p>Users</p>
-              <p>10</p>
+              <p>{users && users.length}</p>
             </Link>
           </div>
         </div>
@@ -87,10 +84,6 @@ const Dashboard = () => {
           <Line data={lineState} />
         </div>
 
-        <div className="doughnutChart">
-          <Doughnut data={doughnutState} 
-          />
-        </div>
       </div>
     </div>
   );

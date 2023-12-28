@@ -25,12 +25,14 @@ const Home = () => {
   },[dispatch, error, alert]);
 
   return (
-    <Fragment>{
-      loading? (<Loader/>) :
-      (<Fragment>
-        <MetaData title= "ECommerce"/>
-         <div className="banner">
-            <p>Welcome to Ecommerce</p>
+    <Fragment>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <MetaData title="ECommerce" />
+          <div className="banner">
+            <p>Welcome to GoCart</p>
             <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
             <a href="#homeHeading">
@@ -39,16 +41,19 @@ const Home = () => {
               </button>
             </a>
           </div>
-          <h2 className="homeHeading" id="homeHeading">Featured Products</h2>
-          <div className="container" id="container">
-            {products && products.map(product =>(
-              <Product product={product}/>
-            ))}
+          <div className="grey">
+            <h2 className="homeHeading" id="homeHeading">
+              Featured Products
+            </h2>
+            <div className="container" id="container">
+              {products &&
+                products.map((product) => <Product product={product} />)}
+            </div>
           </div>
-          </Fragment>
-    )}
+        </Fragment>
+      )}
     </Fragment>
-  )
+  );
 }
 
 export default Home

@@ -80,7 +80,7 @@ const NewProduct = () => {
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setImagesPreview((old) => [...old, reader.result]);
+           
           setImages((old) => [...old, reader.result]);
         }
       };

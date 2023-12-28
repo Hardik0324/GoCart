@@ -19,6 +19,7 @@ import EventIcon from "@mui/icons-material/Event";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useNavigate } from "react-router-dom";
 import { createOrder, clearErrors } from "../../actions/orderAction";
+import { CLEAR_CART } from "../../constants/cartConstants";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -95,7 +96,7 @@ const Payment = () => {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
-
+          dispatch({ type: CLEAR_CART });
           dispatch(createOrder(order));
           
           Navigate("/success");

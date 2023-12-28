@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import "./Cart.css";
 import CartItemCard from "./CartItemCard.js";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +12,13 @@ const Cart = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
+  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      Navigate("/login");
+    }
+  }, [Navigate, isAuthenticated]);
 
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
@@ -34,7 +41,7 @@ const Cart = () => {
   };
 
   const checkoutHandler = () => {
-    Navigate("/login?redirect=shipping");
+    Navigate("/shipping");
   };
 
   return (

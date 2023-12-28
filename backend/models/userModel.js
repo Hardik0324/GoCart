@@ -61,6 +61,9 @@ userSchema.methods.getJWTToken = function(){
     })
 }
 
+
+
+
 //Compare Passsword
 userSchema.methods.comparePassword = async function(enteredPassword){
     //console.log(this.password)

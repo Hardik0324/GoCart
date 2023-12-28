@@ -36,6 +36,12 @@ import UpdateProduct from "./component/Admin/UpdateProduct.js"
 import OrderProduct from './component/Admin/OrderList.js';
 import ProcessOrder from "./component/Admin/ProcessOrder.js";
 import UsersList from "./component/Admin/UsersList.js"
+import UpdateUser from "./component/Admin/UpdateUser.js"
+import ProductReviews from "./component/Admin/ProductReviews.js"
+import Contact from "./component/layout/Contact/contact.js"
+import About from "./component/layout/About/about.js"
+
+export const Config = { backEndPoint: `http://127.0.0.1:4000` };
 
 function App() { 
 
@@ -44,7 +50,9 @@ function App() {
   const [stripeapiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey(){
-    const {data} = await axios.get("/api/v1/stripeapikey");
+    const { data } = await axios.get("/api/v1/stripeapikey", {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+    });
     setStripeApiKey(data.stripeApiKey);
   }
   
@@ -84,6 +92,9 @@ function App() {
       {isAuthenticated && (user.role==="admin") && <Route exact path="/admin/orders" element={<OrderProduct/>}/>}
       {isAuthenticated && (user.role==="admin") && <Route exact path="/admin/order/:id" element={<ProcessOrder/>}/>}
       {isAuthenticated && (user.role==="admin") && <Route exact path="/admin/users" element={<UsersList/>}/>}
+      {isAuthenticated && (user.role==="admin") && <Route exact path="/admin/user/:id" element={<UpdateUser/>}/>}
+      {isAuthenticated && (user.role==="admin") && <Route exact path="/admin/reviews" element={<ProductReviews/>}/>}
+      <Route exact path="/contact" element={<Contact/>}/>
       </Routes>
       <Footer/>
     </Router>
