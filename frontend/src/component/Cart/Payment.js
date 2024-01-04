@@ -20,6 +20,7 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useNavigate } from "react-router-dom";
 import { createOrder, clearErrors } from "../../actions/orderAction";
 import { CLEAR_CART } from "../../constants/cartConstants";
+import { Config } from "../../App";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -60,7 +61,7 @@ const Payment = () => {
         },
       };
       const { data } = await axios.post(
-        "/api/v1/payment/process",
+        `${Config.backEndPoint}/api/v1/payment/process`,
         paymentData,
         config
       );

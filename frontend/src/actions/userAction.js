@@ -56,14 +56,15 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `/api/v1/login`,
+      `${Config.backEndPoint}/api/v1/login`,
       { email, password },
       config
     );
 
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
-    dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+    console.log(error)
+    dispatch({ type: LOGIN_FAIL, payload: error?.response?.data?.message });
   }
 };
 
@@ -78,7 +79,7 @@ export const register = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `/api/v1/register`,
+      `${Config.backEndPoint}/api/v1/register`,
       userData,
       config
     );
@@ -97,9 +98,9 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/getUserDetails`, {
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-    });
+    const { data } = await axios.get(
+      `${Config.backEndPoint}/api/v1/getUserDetails`
+    );
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
@@ -110,8 +111,9 @@ export const loadUser = () => async (dispatch) => {
 //Logout
 export const logout = () => async (dispatch) => {
   try {
-    await axios.get(`/api/v1/logout`,
-     {withCredentials: true});
+    await axios.get(`${Config.backEndPoint}/api/v1/logout`, {
+      withCredentials: true,
+    });
     localStorage.removeItem("cartItems");
     localStorage.removeItem("shippingInfo");
     dispatch({ type: LOGOUT_SUCCESS });
@@ -131,7 +133,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `/api/v1/updateProfile`,
+      `${Config.backEndPoint}/api/v1/updateProfile`,
       userData,
       config
     );
@@ -156,7 +158,7 @@ export const updatePassword = (password) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `/api/v1/password/update`,
+      `${Config.backEndPoint}/api/v1/password/update`,
       password,
       config
     );
@@ -181,7 +183,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `/api/v1/password/forgot`,
+      `${Config.backEndPoint}/api/v1/password/forgot`,
       email,
       config
     );
@@ -206,7 +208,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `/api/v1/password/reset/${token}`,
+      `${Config.backEndPoint}/api/v1/password/reset/${token}`,
       passwords,
       config
     );
@@ -225,7 +227,7 @@ export const getAllUsers = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_USERS_REQUEST });
     const { data } = await axios.get(
-      `/api/v1/admin/getAllUser`,
+      `${Config.backEndPoint}/api/v1/admin/getAllUser`,
       {
         withCredentials: true,
       }
@@ -242,7 +244,7 @@ export const getUserDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
     const { data } = await axios.get(
-      `/api/v1/admin/getUser/${id}`,
+      `${Config.backEndPoint}/api/v1/admin/getUser/${id}`,
       {
         withCredentials: true,
       }
@@ -250,7 +252,10 @@ export const getUserDetails = (id) => async (dispatch) => {
 
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user });
   } catch (error) {
-    dispatch({ type: USER_DETAILS_FAIL, payload: error.response.data.message });
+    dispatch({
+      type: USER_DETAILS_FAIL,
+      payload: error?.response?.data?.message,
+    });
   }
 };
 
@@ -265,7 +270,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `/api/v1/admin/getUser/${id}`,
+      `${Config.backEndPoint}/api/v1/admin/getUser/${id}`,
       userData,
       config
     );
@@ -285,7 +290,7 @@ export const deleteUser = (id) => async (dispatch) => {
     dispatch({ type: DELETE_USER_REQUEST });
 
     const { data } = await axios.delete(
-      `/api/v1/admin/getUser/${id}`,
+      `${Config.backEndPoint}/api/v1/admin/getUser/${id}`,
       {
         withCredentials: true,
       }

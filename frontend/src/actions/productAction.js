@@ -41,10 +41,10 @@ export const getProduct =
       dispatch({ type: ALL_PRODUCT_REQUEST });
       let link;
       if(category=='All' || !category)
-      link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      link = `${Config.backEndPoint}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
 
       else if (category) {
-        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        link = `${Config.backEndPoint}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
 
       const { data } = await axios.get(link);
@@ -68,7 +68,7 @@ export const getAdminProduct = () => async (dispatch) => {
     dispatch({ type: ADMIN_PRODUCT_REQUEST });
 
     const { data } = await axios.get(
-      `/api/v1/admin/products`
+      `${Config.backEndPoint}/api/v1/admin/products`
     );
 
     dispatch({
@@ -90,7 +90,7 @@ export const getAdminProduct = () => async (dispatch) => {
       dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
       const { data } = await axios.get(
-        `/api/v1/products/${id}`
+        `${Config.backEndPoint}/api/v1/products/${id}`
       );
 
       dispatch({
@@ -115,7 +115,7 @@ export const newReview = (reviewData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `/api/v1/review`,
+      `${Config.backEndPoint}/api/v1/review`,
       reviewData,
       config
     );
@@ -142,7 +142,7 @@ export const createProduct = (productData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `/api/v1/products/new`,
+      `${Config.backEndPoint}/api/v1/products/new`,
       productData,
       config
     );
@@ -165,7 +165,7 @@ export const deleteProduct = (id) => async (dispatch) => {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
 
     const { data } = await axios.delete(
-      `/api/v1/products/${id}`
+      `${Config.backEndPoint}/api/v1/products/${id}`
     );
 
     dispatch({
@@ -190,7 +190,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `/api/v1/products/${id}`,
+      `${Config.backEndPoint}/api/v1/products/${id}`,
       productData,
       config
     );
@@ -213,7 +213,7 @@ export const getAllReviews = (id) => async (dispatch) => {
     dispatch({ type: ALL_REVIEW_REQUEST });
 
     const { data } = await axios.get(
-      `/api/v1/reviews?id=${id}`
+      `${Config.backEndPoint}/api/v1/reviews?id=${id}`
     );
 
     dispatch({
@@ -234,7 +234,7 @@ export const deleteReviews = (reviewId, productId) => async (dispatch) => {
     dispatch({ type: DELETE_REVIEW_REQUEST });
 
     const { data } = await axios.delete(
-      `/api/v1/reviews?id=${reviewId}&productId=${productId}`
+      `${Config.backEndPoint}/api/v1/reviews?id=${reviewId}&productId=${productId}`
     );
 
     dispatch({
