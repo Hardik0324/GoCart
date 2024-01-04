@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import "./productReviews.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -86,9 +86,7 @@ const ProductReviews = () => {
       flex: 0.4,
 
       cellClassName: (params) => {
-        return params.getValue(params.id, "rating") >= 3
-          ? "greenColor"
-          : "redColor";
+        return params.row.rating >= 3 ? "greenColor" : "redColor";
       },
     },
 
@@ -102,11 +100,7 @@ const ProductReviews = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Button
-              onClick={() =>
-                deleteReviewHandler(params.getValue(params.id, "id"))
-              }
-            >
+            <Button onClick={() => deleteReviewHandler(params.row.id)}>
               <DeleteIcon />
             </Button>
           </Fragment>

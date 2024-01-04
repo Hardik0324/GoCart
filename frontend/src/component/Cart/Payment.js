@@ -34,7 +34,7 @@ const Payment = () => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  const {error} = useSelector((state) => state.newOrder);
+  const { error } = useSelector((state) => state.newOrder);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -61,7 +61,7 @@ const Payment = () => {
         },
       };
       const { data } = await axios.post(
-        `${Config.backEndPoint}/api/v1/payment/process`,
+        `/api/v1/payment/process`,
         paymentData,
         config
       );
@@ -99,7 +99,7 @@ const Payment = () => {
           };
           dispatch({ type: CLEAR_CART });
           dispatch(createOrder(order));
-          
+
           Navigate("/success");
         } else {
           alert.error("There's some issue while processing payment ");
@@ -111,12 +111,12 @@ const Payment = () => {
     }
   };
 
-  useEffect(()=>{
-    if(error){
+  useEffect(() => {
+    if (error) {
       alert.error(error);
       dispatch(clearErrors);
     }
-  },[dispatch, error, alert])
+  }, [dispatch, error, alert]);
 
   return (
     <Fragment>

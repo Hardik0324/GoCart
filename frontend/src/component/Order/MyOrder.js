@@ -1,6 +1,6 @@
 
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import "./myOrders.css";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, myOrders } from "../../actions/orderAction";
@@ -28,7 +28,7 @@ const MyOrders = () => {
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.row.status === "Delivered"
           ? "greenColor"
           : "redColor";
       },
@@ -58,7 +58,7 @@ const MyOrders = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <Link to={`/order/${params.getValue(params.id, "id")}`}>
+          <Link to={`/order/${params.row.id}`}>
             <LaunchIcon />
           </Link>
         );

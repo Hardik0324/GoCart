@@ -32,19 +32,18 @@ import {
 } from "../constants/productConstants";
 
 import { Config } from "../App";
- 
+
 // Get All Products
 export const getProduct =
-  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings=0) =>
+  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_PRODUCT_REQUEST });
       let link;
-      if(category=='All' || !category)
-      link = `${Config.backEndPoint}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
-
+      if (category == "All" || !category)
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
       else if (category) {
-        link = `${Config.backEndPoint}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
 
       const { data } = await axios.get(link);
@@ -52,7 +51,6 @@ export const getProduct =
       dispatch({
         type: ALL_PRODUCT_SUCCESS,
         payload: data,
-        
       });
     } catch (error) {
       dispatch({
@@ -62,14 +60,12 @@ export const getProduct =
     }
   };
 
-  // Get All Products For Admin
+// Get All Products For Admin
 export const getAdminProduct = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCT_REQUEST });
 
-    const { data } = await axios.get(
-      `${Config.backEndPoint}/api/v1/admin/products`
-    );
+    const { data } = await axios.get(`/api/v1/admin/products`);
 
     dispatch({
       type: ADMIN_PRODUCT_SUCCESS,
@@ -81,31 +77,27 @@ export const getAdminProduct = () => async (dispatch) => {
       payload: error.response.data.message,
     });
   }
-}; 
+};
 
-  export const getProductDetails =
-  (id) =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: PRODUCT_DETAILS_REQUEST });
+export const getProductDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-      const { data } = await axios.get(
-        `${Config.backEndPoint}/api/v1/products/${id}`
-      );
+    const { data } = await axios.get(`/api/v1/products/${id}`);
 
-      dispatch({
-        type: PRODUCT_DETAILS_SUCCESS,
-        payload: data.product,
-      });
-    } catch (error) {
-      dispatch({                                                                        
-        type: PRODUCT_DETAILS_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
+    dispatch({
+      type: PRODUCT_DETAILS_SUCCESS,
+      payload: data.product,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
-  // NEW REVIEW
+// NEW REVIEW
 export const newReview = (reviewData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_REVIEW_REQUEST });
@@ -114,11 +106,7 @@ export const newReview = (reviewData) => async (dispatch) => {
       headers: { "Content-Type": "application/json" },
     };
 
-    const { data } = await axios.put(
-      `${Config.backEndPoint}/api/v1/review`,
-      reviewData,
-      config
-    );
+    const { data } = await axios.put(`/api/v1/review`, reviewData, config);
 
     dispatch({
       type: NEW_REVIEW_SUCCESS,
@@ -142,7 +130,7 @@ export const createProduct = (productData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${Config.backEndPoint}/api/v1/products/new`,
+      `/api/v1/products/new`,
       productData,
       config
     );
@@ -164,9 +152,7 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
 
-    const { data } = await axios.delete(
-      `${Config.backEndPoint}/api/v1/products/${id}`
-    );
+    const { data } = await axios.delete(`/api/v1/products/${id}`);
 
     dispatch({
       type: DELETE_PRODUCT_SUCCESS,
@@ -190,7 +176,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${Config.backEndPoint}/api/v1/products/${id}`,
+      `/api/v1/products/${id}`,
       productData,
       config
     );
@@ -212,9 +198,7 @@ export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_REVIEW_REQUEST });
 
-    const { data } = await axios.get(
-      `${Config.backEndPoint}/api/v1/reviews?id=${id}`
-    );
+    const { data } = await axios.get(`/api/v1/reviews?id=${id}`);
 
     dispatch({
       type: ALL_REVIEW_SUCCESS,
@@ -234,7 +218,7 @@ export const deleteReviews = (reviewId, productId) => async (dispatch) => {
     dispatch({ type: DELETE_REVIEW_REQUEST });
 
     const { data } = await axios.delete(
-      `${Config.backEndPoint}/api/v1/reviews?id=${reviewId}&productId=${productId}`
+      `/api/v1/reviews?id=${reviewId}&productId=${productId}`
     );
 
     dispatch({
@@ -249,7 +233,7 @@ export const deleteReviews = (reviewId, productId) => async (dispatch) => {
   }
 };
 
-  // Clearing Errors
+// Clearing Errors
 export const clearErrors = () => async (dispatch) => {
-    dispatch({ type: CLEAR_ERRORS });
-  };
+  dispatch({ type: CLEAR_ERRORS });
+};

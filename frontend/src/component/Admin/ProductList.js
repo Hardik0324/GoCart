@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -87,11 +87,11 @@ const ProductList = ( ) => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/product/${params.row.id}`}>
               <EditIcon />
             </Link>
 
-            <Button onClick={()=>deleteProductHandler(params.getValue(params.id, "id"))}>
+            <Button onClick={() => deleteProductHandler(params.row.id)}>
               <DeleteIcon />
             </Button>
           </Fragment>

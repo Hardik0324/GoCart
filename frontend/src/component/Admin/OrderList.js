@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ import {
   clearErrors,
 } from "../../actions/orderAction";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const OrderList = () => {
   const dispatch = useDispatch();
@@ -61,9 +61,7 @@ const OrderList = () => {
       minWidth: 150,
       flex: 0.4,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
+        return params.row.status === "Delivered" ? "greenColor" : "redColor";
       },
     },
     {
@@ -91,19 +89,15 @@ const OrderList = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <Fragment>
-            <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
+          <React.Fragment>
+            <Link to={`/admin/order/${params.row.id}`}>
               <EditIcon />
             </Link>
 
-            <Button
-              onClick={() =>
-                deleteOrderHandler(params.getValue(params.id, "id"))
-              }
-            >
+            <Button onClick={() => deleteOrderHandler(params.row.id)}>
               <DeleteIcon />
             </Button>
-          </Fragment>
+          </React.Fragment>
         );
       },
     },

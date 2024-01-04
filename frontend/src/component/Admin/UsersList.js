@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -74,9 +74,7 @@ const UsersList = () => {
       minWidth: 150,
       flex: 0.3,
       cellClassName: (params) => {
-        return params.getValue(params.id, "role") === "admin"
-          ? "greenColor"
-          : "redColor";
+        return params.row.role === "admin" ? "greenColor" : "redColor";
       },
     },
 
@@ -90,15 +88,11 @@ const UsersList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/user/${params.row.id}`}>
               <EditIcon />
             </Link>
 
-            <Button
-              onClick={() =>
-                deleteUserHandler(params.getValue(params.id, "id"))
-              }
-            >
+            <Button onClick={() => deleteUserHandler(params.row.id)}>
               <DeleteIcon />
             </Button>
           </Fragment>
